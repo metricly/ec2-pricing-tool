@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+  <script src="/jquery/jquery.min.js"></script>
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/bootstrap-slider/bootstrap-slider.js"></script>
+  <script src="/datatables/js/jquery.dataTables.js"></script>
+  <script src="ec2chooser.js"></script>
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="/bootstrap-slider/css/bootstrap-slider.min.css"/>
+  <link rel="stylesheet" href="/datatables/css/jquery.dataTables.css"/>
+  <link rel="stylesheet" href="https://www.metricly.com/wp-content/themes/Your-Generated-Divi-child-theme-template-by-DiviCake/styles.css?ver=4.9.8"/>
+
+</head>
+<body onload="init()" style="margin-top:15px">
+  <header class="header" id="header">
+          <div class="header_wrap">
+            <div class="grid-container">
+              <a class="header_logo" href="https://www.metricly.com">
+                <img src="https://www.metricly.com/wp-content/uploads/assets/header/images/logo_dark.png" alt="Metricly">
+                <img src="https://www.metricly.com/wp-content/uploads/assets/header/images/logo_dark.png" alt="Metricly">
+              </a>
+              <div class="header_ham">
+                <button class="hamburger hamburger--squeeze" id="header_ham"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button>
+              </div>
+              <nav class="header_nav" id="header_nav">
+                <ul class="header_nav_list">
+                  <li class="header_nav_list_item -with-sublist"> <a>Products</a>
+                    <ul class="header_nav_list_item_sublist">
+                      <div class="header_nav_list_item_sublist_subwrap">
+                        <li class="header_nav_list_item_sublist_item"><a class="class" href="https://www.metricly.com/aws-cost-tool/"> 
+                            <div class="header_nav_list_item_sublist_item_head"><img class="icon" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/aws-cost2x.png" alt="">
+                              <h5>AWS Cost</h5><img class="arrow" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/green-arrow2x.png" alt="">
+                            </div>
+                            <p class="header_nav_list_item_sublist_item_desc">Capacity &amp; cost analysis to find 32%+ savings on your bill.</p></a></li>
+                        <li class="header_nav_list_item_sublist_item"><a href="https://www.metricly.com/monitoring/"> 
+                            <div class="header_nav_list_item_sublist_item_head"><img class="icon" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/monitoring2x.png" alt="">
+                              <h5>Monitoring</h5><img class="arrow" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/green-arrow2x.png" alt="">
+                            </div>
+                            <p class="header_nav_list_item_sublist_item_desc">Apply machine learning analytics to cloud infrastructure.</p></a></li>
+              <li class="header_nav_list_item_sublist_item"><a class="class" href="https://www.metricly.com/pricing/"> 
+                            <div class="header_nav_list_item_sublist_item_head" style="text-align: center;">
+                              <h5 style="color: #34587a; text-align: center; width: 100%;">See Pricing</h5>
+                            </div>
+                            </a></li>
+                      </div>
+                    </ul>
+                  </li>
+                  <li class="header_nav_list_item"> <a href="https://www.metricly.com/demo/">Demo<img class="hide-desktop hide-laptop header_nav_list_item_arrow" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/dark-green-arrow@2x.png" alt=""></a></li>
+                  <li class="header_nav_list_item"> <a href="https://www.metricly.com/customers/">Customers<img class="hide-desktop hide-laptop header_nav_list_item_arrow" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/dark-green-arrow@2x.png" alt=""></a></li>
+          <li class="header_nav_list_item -with-sublist"><a href="#">Resources</a>
+                    <ul class="header_nav_list_item_sublist -two-column">
+                      <div class="header_nav_list_item_sublist_subwrap">
+                        <li class="header_nav_list_item_sublist_item"><a class="class" href="https://www.metricly.com/blog/"> 
+                            <div class="header_nav_list_item_sublist_item_head">
+                              <h5>Blog</h5>
+                            </div>
+                            <p class="header_nav_list_item_sublist_item_desc">Learn the latest in DevOps and Metricly news</p></a></li>
+                        <li class="header_nav_list_item_sublist_item"><a class="class" href="https://www.metricly.com/ebook/"> 
+                            <div class="header_nav_list_item_sublist_item_head">
+                              <h5>eBook</h5>
+                            </div>
+                            <p class="header_nav_list_item_sublist_item_desc">Our 12-page essential guide to cloud monitoring</p></a></li>
+                        <li class="header_nav_list_item_sublist_item"><a class="class" href="https://www.metricly.com/support/"> 
+                            <div class="header_nav_list_item_sublist_item_head">
+                              <h5>Support</h5>
+                            </div>
+                            <p class="header_nav_list_item_sublist_item_desc">Setup guides, help documentation, and support portal</p></a></li>
+                        <li class="header_nav_list_item_sublist_item"><a class="class" href="http://status.metricly.com/" target="_blank"> 
+                            <div class="header_nav_list_item_sublist_item_head">
+                              <h5>Status</h5>
+                            </div>
+                            <p class="header_nav_list_item_sublist_item_desc">Metricly's real-time and historical system performance</p></a></li>
+                      </div>
+                    </ul>
+                  </li>
+                </ul>
+                <div class="header_nav_access"><a class="header_nav_access_link" href="https://app.metricly.com/#/login">Log In</a><span class="hide-desktop hide-laptop header_nav_access_text">or</span><a class="header_nav_access_link -alt" href="https://www.metricly.com/signup">Sign Up Free</a></div>
+              </nav>
+            </div>
+          </div>
+        </header>
+  <div class="container" style="width:100%">
+      <div class="row">
+      <div class="col-sm-12">
+        <form class="form-inline">
+          <label for="region" >Region:</label>
+          <select id="region" class="form-control"></select>
+
+          <label for="tenancy" class="control-label">Tenancy:</label>
+          <select id="tenancy" class="form-control"></select>
+
+          <label for="platform" class="control-label">Platform:</label>
+          <select id="platform" class="form-control"></select>
+
+          <label for="software" class="control-label">Software:</label>
+          <select id="software" class="form-control"></select>
+
+          <label for="license_model" class="control-label">License:</label>
+          <select id="license_model" class="form-control"></select>
+
+          <label for="family" class="control-label">Family:</label>
+          <select id="family" class="form-control"></select>
+
+          <label for="enhanced_network" class="control-label">Enhanced Network:</label>
+          <select id="enhanced_network" class="form-control"></select>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom:10px">
+        <div class="col-sm-12">
+          <form class="form-inline">
+              <label for="vcpu_min">CPUs: </label>
+              <div class="input-group">
+                  <input type="text" class="form-control" style="width: 80px" id="vcpu_min">
+                  <div class="input-group-addon">to</div>
+                  <input type="text" class="form-control" style="width: 80px" id="vcpu_max">
+              </div>
+
+              <label for="memory_gb_min">Memory: </label>
+            <div class="input-group">
+                <input type="text" class="form-control" style="width: 80px" id="memory_gb_min">
+                <div class="input-group-addon">to</div>
+                <input type="text" class="form-control" style="width: 80px" id="memory_gb_max">
+            </div>
+
+            <label for="price_min">Price: </label>
+            <div class="input-group">
+                <input type="text" class="form-control" style="width: 80px" id="price_min">
+                <div class="input-group-addon">to</div>
+                <input type="text" class="form-control" style="width: 80px" id="price_max">
+            </div>
+
+            <span id='rowCount' class="label" style='border: 1px solid black; color: #000; font-size:14px; font-weight: normal; padding: 6px 12px 10px 12px; margin-bottom: 0px';>
+              Records </span>
+          </form>
+        </div>
+      </div>
+
+    <div class='row'>
+      <div class='col-12'>
+          <div style='padding: 0px 12px'>
+            <table id="datatable" class="cell-border compact stripe"></table>
+          </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

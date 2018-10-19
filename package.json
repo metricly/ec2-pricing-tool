@@ -1,0 +1,18 @@
+{
+  "name": "ServeStaticContent",
+  "version": "0.0.1",
+  "description": "EC2 Chooser",
+  "repository": "",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "express": "^4.16.3",
+    "bootstrap": "^3.3.6",
+    "bootstrap-slider": "^10.2.0",
+    "datatables": "^1.10.18"
+  },
+  "scripts": {
+    "debug": "node --inspect app.js",
+    "start": "node app.js"
+  }
+}
