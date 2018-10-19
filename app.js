@@ -1,6 +1,10 @@
 let express = require('express');
 let app = express();
 
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 8080;
+
 let fs = require('fs');
 let data = [];
 let dataLength = 0;
@@ -201,4 +205,4 @@ var getFilteredData = function(req) {
 	return filteredData;
 }
 
-app.listen(8080);
+app.listen(port);
