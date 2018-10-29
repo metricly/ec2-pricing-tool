@@ -1,10 +1,10 @@
 ## Prerequisites
 
-	npm
+	yarn
 
 ## Installation
 
-    $ npm install 
+    $ yarn install
 
 ## Configuration
 
