@@ -734,7 +734,7 @@ mark {
 	left: 0;
 	width: 100%;
 	background: #fff;
-	overflow-y: scroll;
+	overflow-y: auto;
 	max-height: 360px;
 	padding-top: 5px;
 	z-index: 5;
@@ -1697,7 +1697,7 @@ table.dataTable tbody td:last-child {
 	background: url(assets/pin.svg) no-repeat;
 	background-position: center center;
 	cursor: pointer;
-} 
+}
 table.dataTable tbody td:last-child:hover {
 	background: url(assets/pin-fill.svg) no-repeat;
 	background-position: center center;
@@ -1755,7 +1755,7 @@ table.dataTable tbody td:last-child.dataTables_empty{
 }
 .bookmarks td:last-child{
 	min-width: 44px;
-} 
+}
 table th{
 	width: auto!important;
 }
@@ -1827,6 +1827,6 @@ table td{
 
 .bookmarks td:nth-of-type(15) {
 	min-width: 44px;
-} 
+}
 
 }
