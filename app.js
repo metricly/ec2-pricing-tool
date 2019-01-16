@@ -10,9 +10,9 @@ let data = [];
 let dataLength = 0;
 let headings = [];
 
-let filterNames = ['region', 'platform', 'software', 'license_model', 'tenancy', 'instance_type', 'enhanced_network', 'family'];
-
-let rangeFilterNames = ['memory_gb', 'vcpu', 'price'];
+let filterNames = ['region', 'platform', 'software', 'license_model', 'tenancy', 'instance_type', 'family', 'license_model', 'network_perf', 'ebs_throughput'];
+let rangeFilterNames = ['memory_gb', 'vcpu', 'price', 'ecu', 'storage_gb'];
+let checkFilterNames = ['enhanced_network', 'current']; //my
 
 console.log(`Reading data file`);
 
@@ -176,10 +176,14 @@ let renameNest = function(entry) {
 var getFilteredData = function(req) {
 	let filters = [];
 	let rangeFilters = [];
+	let checkFilters = [];	//my
+
+
 	if (req.query.filters) {
 		filters = filterNames.map((name) => {
 			return {name, value: req.query.filters[name]};
 		}).filter((filter) => filter.value ? true : false);
+		// console.log(filterNames);
 
 		rangeFilters = rangeFilterNames.map((name) => {
 			if (req.query.filters[name + "_max"]) { 
@@ -193,6 +197,13 @@ var getFilteredData = function(req) {
 				return {active: false};
 			}
 		}).filter((filter) => filter.active);
+		// console.log(rangeFilters)
+
+		checkFilters = checkFilterNames.map((name) => {	//my
+			return {name, value: req.query.filters[name]};
+			
+		}).filter((filter) => filter.value);
+		console.log(checkFilters);
 	}
 	
 	let filteredData = data;
@@ -200,7 +211,7 @@ var getFilteredData = function(req) {
 
 	rangeFilters.forEach((filter) => filteredData = filteredData.filter((row) => row[filter.name] >= filter.min && row[filter.name] <= filter.max));
 
-	
+	checkFilters.forEach((filter) => filteredData = filteredData.filter((row) => row[filter.name] === filter.value)); //my
 
 	return filteredData;
 }

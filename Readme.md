@@ -15,7 +15,7 @@
 
   $ node app.js
 
- ## Use the viewer
+## Use the viewer
  
  	http://localhost:8080/ 
 

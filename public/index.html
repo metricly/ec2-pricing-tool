@@ -1,169 +1,500 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<input id="_enhanced_network" name="enhanced_network" type="text"><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html>
 <head>
- 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
- 	<title>Free EC2 Instance Pricing Tool</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Free EC2 Instance Pricing Tool</title>
 	<script src="/jquery/jquery.min.js"></script>
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/bootstrap-slider/bootstrap-slider.js"></script>
-	<script src="/datatables/js/jquery.dataTables.js"></script>
-	<script src="ec2chooser.js"></script>
+	<!-- <script src="/datatables/js/jquery.dataTables.js"></script> -->
+	<!-- <script src="/dataTables.editor.min.js"></script> -->
+	<!-- <script src="ec2chooser.js"></script> -->
 	<script src="https://d3js.org/d3.v4.min.js"></script>
+ 
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.2/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-1.5.0/sl-1.2.6/datatables.min.js"></script>
 	<!-- Segment Snippet -->
-	<script>
-  		!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(n,o);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
-  		analytics.load("Z019VdyfJ1LDKgU2uKBMp61JwXlMgSB1");
-  		analytics.page();
-  		}}();
-	</script>
-	<link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
-	<link rel="stylesheet" href="/bootstrap-slider/css/bootstrap-slider.min.css"/>
-	<link rel="stylesheet" href="/datatables/css/jquery.dataTables.css"/>
-	<link rel="stylesheet" href="https://www.metricly.com/wp-content/themes/Your-Generated-Divi-child-theme-template-by-DiviCake/styles.css?ver=4.9.8"/>
-	<link rel="stylesheet" id="divi-style-css" href="https://www.metricly.com/wp-content/themes/Your-Generated-Divi-child-theme-template-by-DiviCake/style.css?ver=1.0" type="text/css" media="all">
-  <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+<!-- 	<script>
+		!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(n,o);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+		analytics.load("Z019VdyfJ1LDKgU2uKBMp61JwXlMgSB1");
+		analytics.page();
+	}}();
+</script>
+ <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>-->
+<!-- <link rel="stylesheet" href="/bootstrap-slider/css/bootstrap-slider.min.css"/> -->
+<!-- <link rel="stylesheet" href="/datatables/css/jquery.dataTables.css"/>
+ -->
+<!-- <link rel="stylesheet" href="https://www.metricly.com/wp-content/themes/Your-Generated-Divi-child-theme-template-by-DiviCake/styles.css?ver=4.9.8"/>
+<link rel="stylesheet" id="divi-style-css" href="https://www.metricly.com/wp-content/themes/Your-Generated-Divi-child-theme-template-by-DiviCake/style.css?ver=1.0" type="text/css" media="all"> -->
+<link rel="stylesheet" href="styles.css" type="text/css">
 </head>
-<body onload="init()">
-  <header class="header" id="header">
-          <div class="header_wrap">
-            <div class="grid-container">
-              <a class="header_logo" href="https://www.metricly.com">
-                <img src="https://www.metricly.com/wp-content/uploads/assets/header/images/logo_dark.png" alt="Metricly">
-                <img src="https://www.metricly.com/wp-content/uploads/assets/header/images/logo_dark.png" alt="Metricly">
-              </a>
-              <div class="header_ham">
-                <button class="hamburger hamburger--squeeze" id="header_ham"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button>
-              </div>
-              <nav class="header_nav" id="header_nav">
-                <ul class="header_nav_list">
-                  <li class="header_nav_list_item -with-sublist"> <a>Products</a>
-                    <ul class="header_nav_list_item_sublist">
-                      <div class="header_nav_list_item_sublist_subwrap">
-                        <li class="header_nav_list_item_sublist_item"><a class="class" href="https://www.metricly.com/aws-cost-tool/"> 
-                            <div class="header_nav_list_item_sublist_item_head"><img class="icon" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/aws-cost2x.png" alt="">
-                              <h5>AWS Cost</h5><img class="arrow" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/green-arrow2x.png" alt="">
-                            </div>
-                            <p class="header_nav_list_item_sublist_item_desc">Capacity &amp; cost analysis to find 32%+ savings on your bill.</p></a></li>
-                        <li class="header_nav_list_item_sublist_item"><a href="https://www.metricly.com/monitoring/"> 
-                            <div class="header_nav_list_item_sublist_item_head"><img class="icon" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/monitoring2x.png" alt="">
-                              <h5>Monitoring</h5><img class="arrow" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/green-arrow2x.png" alt="">
-                            </div>
-                            <p class="header_nav_list_item_sublist_item_desc">Apply machine learning analytics to cloud infrastructure.</p></a></li>
-              <li class="header_nav_list_item_sublist_item"><a class="class" href="https://www.metricly.com/pricing/"> 
-                            <div class="header_nav_list_item_sublist_item_head" style="text-align: center;">
-                              <h5 style="color: #34587a; text-align: center; width: 100%;">See Pricing</h5>
-                            </div>
-                            </a></li>
-                      </div>
-                    </ul>
-                  </li>
-                  <li class="header_nav_list_item"> <a href="https://www.metricly.com/demo/">Demo<img class="hide-desktop hide-laptop header_nav_list_item_arrow" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/dark-green-arrow@2x.png" alt=""></a></li>
-                  <li class="header_nav_list_item"> <a href="https://www.metricly.com/customers/">Customers<img class="hide-desktop hide-laptop header_nav_list_item_arrow" src="https://www.metricly.com/wp-content/uploads/assets/header/icons/dark-green-arrow@2x.png" alt=""></a></li>
-          <li class="header_nav_list_item -with-sublist"><a href="#">Resources</a>
-                    <ul class="header_nav_list_item_sublist -two-column">
-                      <div class="header_nav_list_item_sublist_subwrap">
-                        <li class="header_nav_list_item_sublist_item"><a class="class" href="https://www.metricly.com/blog/"> 
-                            <div class="header_nav_list_item_sublist_item_head">
-                              <h5>Blog</h5>
-                            </div>
-                            <p class="header_nav_list_item_sublist_item_desc">Learn the latest in DevOps and Metricly news</p></a></li>
-                        <li class="header_nav_list_item_sublist_item"><a class="class" href="https://www.metricly.com/ebook/"> 
-                            <div class="header_nav_list_item_sublist_item_head">
-                              <h5>eBook</h5>
-                            </div>
-                            <p class="header_nav_list_item_sublist_item_desc">Our 12-page essential guide to cloud monitoring</p></a></li>
-                        <li class="header_nav_list_item_sublist_item"><a class="class" href="https://www.metricly.com/support/"> 
-                            <div class="header_nav_list_item_sublist_item_head">
-                              <h5>Support</h5>
-                            </div>
-                            <p class="header_nav_list_item_sublist_item_desc">Setup guides, help documentation, and support portal</p></a></li>
-                        <li class="header_nav_list_item_sublist_item"><a class="class" href="http://status.metricly.com/" target="_blank"> 
-                            <div class="header_nav_list_item_sublist_item_head">
-                              <h5>Status</h5>
-                            </div>
-                            <p class="header_nav_list_item_sublist_item_desc">Metricly's real-time and historical system performance</p></a></li>
-                      </div>
-                    </ul>
-                  </li>
-                </ul>
-                <div class="header_nav_access"><a class="header_nav_access_link" href="https://app.metricly.com/#/login">Log In</a><span class="hide-desktop hide-laptop header_nav_access_text">or</span><a class="header_nav_access_link -alt" href="https://www.metricly.com/signup">Sign Up Free</a></div>
-              </nav>
+<body>
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<a href="#" class="header-logo">
+					<img src="assets/logo.png" alt="logo">
+				</a>
+				<div class="header-nav">
+					<ul>
+						<li><a href="#">Tools</a></li>
+						<li><a href="#">DevOps blog</a></li>
+						<li><a href="#">About Metricly</a></li>
+						<li class="link">
+							<a href="#">
+								<svg class="icon-share"><use xlink:href="assets/bundle.svg#share"></use></svg>
+								Metricly.com
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div> 
+	</header>
+
+	<!-- Start bodyHtml -->
+	<div class="pricing-tool">
+		<div class="container">
+			<div class="title-block">
+				<h1>EC2 Instance Pricing Tool</h1>
+				<div class="title-block__socials">
+					<a class="enjoy" href="#">Enjoying the tools?</a>
+					<ul>
+						<li>
+							<a href="#">
+								<svg class="icon-social"><use xlink:href="assets/bundle.svg#facebook"></use></svg>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<svg class="icon-social"><use xlink:href="assets/bundle.svg#linkedIn"></use></svg>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<svg  class="icon-social"><use xlink:href="assets/bundle.svg#twitter"></use></svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="filter-block">
+				<div class="filter-block__title">
+					<h2>General filter</h2>
+					<button class="btn-reset">
+						<svg class="icon-reset">
+							<use xlink:href="assets/bundle.svg#reset"></use>
+						</svg>
+						Reset all filters
+					</button>
+				</div>
+				<form class="form">
+					<div class="select">
+						<label for="region">Region</label>
+						<select name="region" id="region"></select>
+
+						<svg class="icon-arrow">
+							<use xlink:href="assets/bundle.svg#arrow-blue"></use>
+						</svg>
+
+					</div>
+					<div class="select">
+						<label for="platform">Platform</label>
+						<select name="platform" id="platform" value="default">
+							<option hidden  value="default" selected>Choose platform</option>
+							<option value="linux" >Linux</option>
+							<option value="windows" >Windows</option>
+						</select>
+						<svg class="icon-arrow">
+							<use xlink:href="assets/bundle.svg#arrow-blue"></use>
+						</svg>
+					</div>
+					<div class="input cpu">
+						<label for="cpu">
+							vCPU 
+							<span class="info" data-info="vcpu">
+								<svg  class="icon-info"><use xlink:href="assets/bundle.svg#info"></use></svg>    
+							</span>
+							<div class="info-content" data-info="vcpu">
+								<h2>vCPU</h2>
+								<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+							</div>
+						</label>
+						<div class="input-group">
+							<input type="number" value="" id="vcpu_min">
+							<span class="minus"></span>
+							<input type="number" value="" id="vcpu_max">
+						</div>
+					</div>
+					<div class="input memory">
+						<label for="memory">Memory</label>
+						<div class="input-group">
+							<input type="number" value="" id="memory_gb_min">
+							<span class="minus"></span>
+							<input type="number" value="" id="memory_gb_max">
+							<span class="value">GB</span>
+						</div>
+					</div>
+					<div class="input price">
+						<label for="price">Price</label>
+						<div class="input-group">
+							<span class="value">USD</span>
+							<input type="number" value="" id="price_min">
+							<span class="minus"></span>
+							<input type="number" value="" id="price_max">
+						</div>
+					</div>
+					<!-- <div class="custom-input time ACT">
+						<input type="text" value="9999">
+						<div class="custom-input__dropdown">
+							<ul>
+								<li>182,5</li>
+								<li>365</li>
+								<li>182,5</li>
+								<li>730</li>
+							</ul>
+						</div>
+						<div class="time-value">
+							hrs
+						</div>
+						<div class="icon-arrow__wrapper">
+							<svg class="icon-arrow">
+								<use xlink:href="assets/bundle.svg#arrow-blue_light"></use>
+							</svg>
+						</div>
+					</div> -->
+				</form>
+				<!-- <div class="price-for-month ACT">
+					Price for 730 hrs/month
+					<span class="info" data-info="price">
+						<svg  class="icon-info"><use xlink:href="assets/bundle.svg#info"></use></svg>    
+					</span>
+					<div class="info-content" data-info="price">
+						<h2>730 hours per month</h2>
+						<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+					</div>
+				</div> -->
+				<button class="btn-more-filters">Advanced filter
+					<svg class="icon-arrow">
+						<use xlink:href="assets/bundle.svg#arrow-blue_light"></use>
+					</svg>
+				</button>
+<!-- Clear open class-->				<div class="more-filters open">
+					<form class="form">
+						<div class="select">
+							<label for="tenancy">Tenancy</label>
+							<select name="tenancy" id="tenancy">
+							</select>
+							<svg class="icon-arrow">
+								<use xlink:href="assets/bundle.svg#arrow-blue"></use>
+							</svg>
+						</div>
+						<div class="select">
+							<label for="family">Family</label>
+							<select name="family" id="family" value="default">
+								<option selected>Compute optimized</option>
+							</select>
+							<svg class="icon-arrow">
+								<use xlink:href="assets/bundle.svg#arrow-blue"></use>
+							</svg>
+						</div>
+						<div class="select">
+							<label for="software">Software</label>
+							<select name="software" id="software" value="default">
+								<option selected value="show all">Show all</option>
+							</select>
+							<svg class="icon-arrow">
+								<use xlink:href="assets/bundle.svg#arrow-blue"></use>
+							</svg>
+						</div>
+						<div class="select">
+							<label for="license">License</label>
+							<select name="license" id="license_model" value="default">
+								<option selected value="none required">None required</option>
+							</select>
+							<svg class="icon-arrow">
+								<use xlink:href="assets/bundle.svg#arrow-blue"></use>
+							</svg>
+						</div>
+						<div class="select-group network">
+							<div class="select">
+								<label for="network">Network</label>
+								<select name="network_perf" id="network_perf" value="default">
+									<option selected>Very low</option>
+								</select>
+								<svg class="icon-arrow">
+									<use xlink:href="assets/bundle.svg#arrow-blue"></use>
+								</svg>	
+							</div>
+							<!-- <div class="select">
+								<select name="network" id="network" value="default" class="">
+									<option selected>10 Gigabyte</option>
+								</select>
+								<svg class="icon-arrow">
+									<use xlink:href="assets/bundle.svg#arrow-blue"></use>
+								</svg>
+							</div> -->
+						</div>
+						<div class="input ecu">
+							<label for="ecu">ECU</label>
+							<div class="input-group">
+								<input type="number" value="" id="ecu_min">
+								<span class="minus"></span>
+								<input type="number" value="" id="ecu_max">
+							</div>
+						</div>
+					</form>
+					<form class="form">
+						<div class="select-group">
+							<div class="select">
+								<label for="ebs">EBS Throughput</label>
+								<select name="ebs_throughput" id="ebs_throughput" value="default">
+									<option selected>Very low</option>
+								</select>
+								<svg class="icon-arrow">
+									<use xlink:href="assets/bundle.svg#arrow-blue"></use>
+								</svg>
+							</div>
+							<!-- <div class="select">
+								<select name="network" id="network" value="default">
+									<option selected>10 Gigabyte</option>
+								</select>
+								<svg class="icon-arrow">
+									<use xlink:href="assets/bundle.svg#arrow-blue"></use>
+								</svg>
+							</div> -->
+						</div>
+						<div class="input storage">
+							<label for="storage">Storage</label>
+							<div class="input-group">
+								<input type="number" value="" id="storage_gb_min">
+								<span class="minus"></span>
+								<input type="number" value="" id="storage_gb_max">
+							</div>
+						</div>
+					</form>
+					<div class="row">
+						<div class="checkbox">
+							<input id="enhanced_network" name="enhanced_network" type="checkbox" value=""> 
+							<!-- <select id="enhanced_network" name="enhanced_network"></select> -->
+							<span class="checkbox-mask"></span>
+							<label for="enhanced_network" class=" ACT">Enhanced Network</label>
+						</div>
+						<div class="checkbox">
+							<input id="current" name="current" type="checkbox" value="">
+							<span class="checkbox-mask"></span>
+							<label for="current" class=" ACT">Hide Previous Generations
+								<span class="info" data-info="hidePrevious">
+									<svg  class="icon-info"><use xlink:href="assets/bundle.svg#info"></use></svg>    
+								</span>
+								<div class="info-content" data-info="hidePrevious">
+									<h2>vCPU</h2>
+									<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+								</div>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="pinned" data-pinned="0" data-items="item">
+				<p>Pinned</p>
+			</div>
+			<div class="table bookmarks">
+					<table class="datatable">
+						<thead>
+
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+			</div>
+			<div class="search-block">
+				<div class="row">
+					<div class="search-block__found">
+						Found <span id="rowCount"></span> entries
+					</div>
+					<div class="search-block__search">
+						<div class="matches">
+							<span>0</span> matches
+						</div>
+						<div class="input-search">
+							<input type="search" placeholder="Free search...">
+							<svg class="icon-search">
+								<use xlink:href="assets/bundle.svg#search"></use>
+							</svg>
+						</div>
+						<button class="btn-colomns">
+							<svg class="icon-settings">
+								<use xlink:href="assets/bundle.svg#settings"></use>
+							</svg>
+							Colomns
+						</button>
+						<div class="colomns-block">
+							<button class="btn__restore">
+								<svg class="icon-restore">
+									<use xlink:href="assets/bundle.svg#restore"></use>
+								</svg>
+							Restore defaults</button>
+							<div class="row">
+								<div class="colomns-block__item">
+									<ul>
+										<li>
+											<input id="type-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="type-checkbox">Type</label>
+										</li>
+										<li>
+											<input id="tenancy-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="tenancy-checkbox">Tenancy</label>
+										</li>
+										<li>
+											<input id="platform-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="platform-checkbox">Platform</label>
+										</li>
+										<li>
+											<input id="license-model-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="license-model-checkbox">License Model</label>
+										</li>
+										<li>
+											<input id="software-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="software-checkbox">Software</label>
+										</li>
+										<li>
+											<input id="family-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="family-checkbox">Family</label>
+										</li>
+									</ul>
+								</div>
+								<div class="colomns-block__item">
+									<ul>
+										<li>
+											<input id="network-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="network-checkbox">Network</label>
+										</li>
+										<li>
+											<input id="ebs-throughput-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="ebs-throughput-checkbox">EBS Throughput</label>
+										</li>
+										<li>
+											<input id="memory-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="memory-checkbox">Memory</label>
+										</li>
+										<li>
+											<input id="storage-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="storage-checkbox">Storage</label>
+										</li>
+										<li>
+											<input id="ecu-checkbox" type="checkbox" checked>
+											<span class="checkbox-mask"></span>
+											<label for="ecu-checkbox">ECU</label>
+										</li>
+										<li>
+											<input id="vcpu-checkbox" type="checkbox" checked> 
+											<span class="checkbox-mask"></span>
+											<label for="vcpu-checkbox">vCPU</label>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<button class="btn btn--save">Save</button>
+							<button class="btn btn--cancel">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Start table -->
+			<div class="table context">
+				<table id="datatable" class="cell-border compact stripe"></table>
+			</div>
+			<!-- End table -->
+
+<!--  			<div class="datatable-info">
+				<div class=" datatable-info__showing">
+					<label for="showing">Showing</label>
+					<div class="select">
+						<select name="showing" id="showing">
+							<option selected value="12">12 entries</option>
+							<option value="24">24 entries</option>
+							<option value="36">36 entries</option>
+						</select>
+						<svg class="icon-arrow"><use xlink:href="assets/bundle.svg#arrow-blue"></use></svg>
+					</div>
+				</div>
+			</div>  -->
+
+		</div>
+	</div>
+	</div>
+<footer>
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+            <div class="footer-top_item -social"><a class="footer-top_logo" href="#"><img src="assets/logo.png" alt="logo"></a>
+              <p>Metricly is a SaaS-based adaptive monitoring solution that helps organizations monitor cloud services, applications, infrastructure, and public cloud costs</p>
+              <ul class="social-links">
+                <li><a href="#"><img src="assets/facebook.svg" alt="facebook"></a></li>
+                <li><a href="#"><img src="assets/linked_in.svg" alt="linkedin"></a></li>
+                <li><a href="#"><img src="assets/twitter.svg" alt="twitter"></a></li>
+              </ul>
+            </div>
+            <div class="footer-top_item">
+              <h3>Products</h3>
+              <ul class="aws-list">
+                <li><a href="#">AWS Cost</a></li>
+                <li><a class="monitoring" href="#">Monitoring</a></li>
+              </ul>
+              <ul class="links-list">
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Updates</a></li>
+              </ul>
+            </div>
+            <div class="footer-top_item">
+              <h3>Use Cases</h3>
+              <ul class="aws-list">
+                <li><a class="sizing" href="#">AWS Sizing Tool</a></li>
+                <li><a href="#">AWS Cost Management</a></li>
+              </ul>
+              <ul class="links-list">
+                <li><a href="#">See a Demo</a></li>
+              </ul>
+            </div>
+            <div class="footer-top_item">
+              <h3>Resources</h3>
+              <ul class="links">
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Status</a></li>
+                <li><a href="#">eBook</a></li>
+              </ul>
+            </div>
+            <div class="footer-top_item">
+              <h3>Company</h3>
+              <ul class="links">
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
             </div>
           </div>
-        </header>
-        <div class="customer-page_head">
-<div class="grid-container">
-<p><img src="https://www.metricly.com/wp-content/uploads/2018/09/metricly_sising_ec2-1.png" alt=""></p>
-<h1>EC2 Instance Pricing Tool</h1>
-<p>To use, start by doing x, then do y!</p></div>
-</div>
-  <div class="container" style="width:100%">
-      <div class="row">
-      <div class="col-sm-12">
-        <form class="form-inline">
-          <label for="region" >Region:</label>
-          <select id="region" class="form-control"></select>
-
-          <label for="tenancy" class="control-label">Tenancy:</label>
-          <select id="tenancy" class="form-control"></select>
-
-          <label for="platform" class="control-label">Platform:</label>
-          <select id="platform" class="form-control"></select>
-
-          <label for="software" class="control-label">Software:</label>
-          <select id="software" class="form-control"></select>
-
-          <label for="license_model" class="control-label">License:</label>
-          <select id="license_model" class="form-control"></select>
-
-          <label for="family" class="control-label">Family:</label>
-          <select id="family" class="form-control"></select>
-
-          <label for="enhanced_network" class="control-label">Enhanced Network:</label>
-          <select id="enhanced_network" class="form-control"></select>
-
-        </form>
-      </div>
-    </div>
-
-    <div class="row" style="margin-top: 10px; margin-bottom:10px">
-        <div class="col-sm-12">
-          <form class="form-inline">
-              <label for="vcpu_min">CPUs: </label>
-              <div class="input-group">
-                  <input type="text" class="form-control" style="width: 80px" id="vcpu_min">
-                  <div class="input-group-addon">to</div>
-                  <input type="text" class="form-control" style="width: 80px" id="vcpu_max">
-              </div>
-
-              <label for="memory_gb_min">Memory: </label>
-            <div class="input-group">
-                <input type="text" class="form-control" style="width: 80px" id="memory_gb_min">
-                <div class="input-group-addon">to</div>
-                <input type="text" class="form-control" style="width: 80px" id="memory_gb_max">
-            </div>
-
-            <label for="price_min">Price: </label>
-            <div class="input-group">
-                <input type="text" class="form-control" style="width: 80px" id="price_min">
-                <div class="input-group-addon">to</div>
-                <input type="text" class="form-control" style="width: 80px" id="price_max">
-            </div>
-
-            <span id='rowCount' class="label" style='border: 1px solid black; color: #000; font-size:14px; font-weight: normal; padding: 6px 12px 10px 12px; margin-bottom: 0px';>
-              Records </span>
-          </form>
         </div>
       </div>
-
-    <div class='row'>
-      <div class='col-12'>
-          <div style='padding: 0px 12px'>
-            <table id="datatable" class="cell-border compact stripe"></table>
-          </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="row"><a href="#">Legal & Privacy</a><span>&copy; Metricly, Inc. All rights reserved.</span></div>
+        </div>
       </div>
-
-    </div>
-  </div>
+    </footer>
+<script src="script.js"></script>
 </body>
 </html>
