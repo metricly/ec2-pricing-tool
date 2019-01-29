@@ -95,6 +95,25 @@ button,input {
 	width: 100%;
 }
 
+.grid-container {
+    margin: 0 auto;
+    max-width: 1470px;
+    padding-left: 55px;
+    padding-right: 55px;
+}
+
+@media (max-width: 1079px)
+.grid-container {
+    padding-left: 55px;
+    padding-right: 55px;
+}
+
+@media (max-width: 719px)
+.grid-container {
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
 @media (max-width:1440px) {
 	.container {
 		padding: 0 50px 0;
@@ -1829,4 +1848,10 @@ table td{
 	min-width: 44px;
 }
 
+}
+
+.intro-text {
+	color: white;
+  padding-bottom: 20px;
+  max-width: 550px;
 }
