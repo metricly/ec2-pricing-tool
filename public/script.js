@@ -148,7 +148,7 @@ App.prototype = {
   			try {
   				resp = respdata;
   			} catch (e) {
-  				alert("Failed to parse response: " + respdata);
+  				// console.log("Failed to parse response: " + respdata);
   			}
   			if (callback != null)
   				callback(resp);
@@ -342,7 +342,7 @@ afterLoadData: function(data) {
       	table = $("#datatable").DataTable({
       		xdom: "rtlip",
       		dom: "t<'datatable-info'lp>",
-      		serverSide: true,
+			serverSide: true,
 			retrieve: true,
 			pageLength: 12,
 			rowReorder: {
@@ -462,7 +462,7 @@ afterLoadData: function(data) {
 			location.reload();
 	}
 
-
+	$.fn.dataTable.ext.errMode = 'none';
 
 //******************************************************************************
 var app;
@@ -897,7 +897,7 @@ $('#datatable').on('click', 'td:last-child', function() {
 	
 	tr.html($(this).parent().html());
 
-	console.log($('.bookmarks thead').children())
+	// console.log($('.bookmarks thead').children())
 
 	if($('.bookmarks thead').children().length === 0 ){
 		let thead = $('<tr></tr>');

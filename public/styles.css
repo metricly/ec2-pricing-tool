@@ -1830,3 +1830,9 @@ table td{
 }
 
 }
+
+.intro-text {
+   	color: white;
+    padding-bottom: 20px;
+    max-width: 550px;
+}
