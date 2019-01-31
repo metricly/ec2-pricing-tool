@@ -57,7 +57,7 @@ currentTableData.on('finish', function() {
 	});
 });
 
-let j = schedule.scheduleJob('1 * * * * *', function() {
+let j = schedule.scheduleJob('59 59 23 * * 7', function() {
 	initPriceList();
 	console.log('render new table')
 })
