@@ -12,6 +12,10 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 	outline: 0;
 }
 
+input:required {
+	box-shadow: none;
+ }
+
 body {
 	line-height: 1;
 }
@@ -36,10 +40,10 @@ input,input::-webkit-search-cancel-button,input::-webkit-search-decoration,input
 	border: none;
 }
 
-input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button {
+/* input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
-}
+} */
 
 textarea {
 	overflow: auto;
@@ -80,6 +84,15 @@ body,html {
 	line-height: 1.2;
 	color: #2d516c;
 	overflow-x: hidden;
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
 
 button,input {
@@ -820,14 +833,20 @@ mark {
 .pricing-tool .form .input .input-group input {
 	padding: 0 5px;
 	font-size: 16px;
-	width: 100%;
+	width: calc(50% - 5px);
 	border: none;
 	height: 48px;
 	text-align: center;
 	font-weight: 600;
 	color: #2d516c;
+	box-shadow: 0px 0px 0px transparent;
 }
-
+.pricing-tool .form .input.memory .input-group input {
+	width: calc(50% - 28px);
+}
+.pricing-tool .form .input.price .input-group input {
+	width: calc(50% - 33px);
+}
 .pricing-tool .form .input .input-group input:first-child {
 	border-left: 1px solid #e4e9ec;
 }
@@ -1851,7 +1870,9 @@ table td{
 }
 
 .intro-text {
+
 	color: white;
   padding-bottom: 20px;
   max-width: 550px;
 }
+

@@ -6,9 +6,61 @@ let app = express();
 var port = process.env.PORT || 8080;
 
 let fs = require('fs');
+let https = require('https');
+let schedule = require('node-schedule')
 let data = [];
 let dataLength = 0;
 let headings = [];
+
+let currentTableData;
+let request;
+function initPriceList() {
+currentTableData = fs.createWriteStream("currentListTable.psv");
+request = https.get('https://s3-us-west-2.amazonaws.com/com-netuitive-app-usw2-www/tools/pricing-tool/listprices.psv', response => {
+	response.pipe(currentTableData);
+});
+}
+
+initPriceList();
+
+currentTableData.on('finish', function() {
+	console.log('FINISHED')
+	fs.readFile(__dirname + '/currentListTable.psv', 'utf8', function (err, contents) {
+
+		let allTextLines = contents.split(/\r\n|\n/);
+	
+		headings = allTextLines[0].split("|").map(entry => entry.trim());
+	
+		let rows = new Array(allTextLines.length - 2).fill({});
+	
+		for (var i = 2; i < allTextLines.length; i++) {
+			let row = allTextLines[i];
+			let values = row.split("|").map((entry) => entry.trim());
+	
+			let obj = {};
+			let ix = 0;
+			headings.forEach(heading => {
+				obj[heading] = values[ix++];
+			});
+			rows[i - 2] = obj;
+		}
+	
+		// Trim blanks
+		data = rows.filter((row) => row.rate_code !== '');
+	
+		// Remove unwanted
+		data = rows.filter((row) => row.tenancy !== 'Host');
+	
+		dataLength = data.length;
+	
+		console.log(`Parsed ${allTextLines.length} rows`);
+	});
+});
+
+let j = schedule.scheduleJob('59 59 23 * * 7', function() {
+	initPriceList();
+	console.log('render new table')
+})
 
 let filterNames = ['region', 'platform', 'software', 'license_model', 'tenancy', 'instance_type', 'family', 'license_model', 'network_perf', 'ebs_throughput'];
 let rangeFilterNames = ['memory_gb', 'vcpu', 'price', 'ecu', 'storage_gb'];
@@ -16,37 +68,6 @@ let checkFilterNames = ['enhanced_network', 'current']; //my
 
 console.log(`Reading data file`);
 
-fs.readFile(__dirname + '/listprices_2018-08-08.psv', 'utf8', function(err, contents) {
-
-	let allTextLines = contents.split(/\r\n|\n/);
-
-	headings = allTextLines[0].split("|").map(entry => entry.trim());
-
-	let rows = new Array(allTextLines.length - 2).fill({});
-
-	for (var i = 2; i < allTextLines.length; i++) {
-		let row = allTextLines[i];
-		let values = row.split("|").map((entry) => entry.trim());
-
-		let obj = {};
-		let ix = 0;
-		headings.forEach(heading => {
-			obj[heading] = values[ix++];
-		});
-		rows[i-2] = obj;
-	}
-	
-	// Trim blanks
-	data = rows.filter((row) => row.rate_code !== '');
-
-	// Remove unwanted
-	data = rows.filter((row) => row.tenancy !== 'Host');
-
-	dataLength = data.length;
-
-	console.log(`Parsed ${allTextLines.length} rows`);
-	
-});
 
 //let outputFolder = '../../output';
 
@@ -68,7 +89,7 @@ app.get('/lookup', (req, res) => {
 	});
 });
 
-let lookup = function(field) {
+let lookup = function (field) {
 	let filteredData = data;
 
 	let values = filteredData.reduce((prev, curr) => {
@@ -103,7 +124,7 @@ app.get('/memrange', (req, res) => {
 		prev[0] = parseFloat(curr.memory_gb) < prev[0] ? parseFloat(curr.memory_gb) : prev[0];
 		prev[1] = parseFloat(curr.memory_gb) > prev[1] ? parseFloat(curr.memory_gb) : prev[1];
 		return prev;
-	}, [99999,0]);
+	}, [99999, 0]);
 	res.send(range);
 });
 
@@ -114,10 +135,10 @@ app.get('/range', (req, res) => {
 		prev[0] = parseFloat(curr[field]) < prev[0] ? parseFloat(curr[field]) : prev[0];
 		prev[1] = parseFloat(curr[field]) > prev[1] ? parseFloat(curr[field]) : prev[1];
 		return prev;
-	}, [99999,0]);
+	}, [99999, 0]);
 	res.send({
-		field, 
-		min: range[0], 
+		field,
+		min: range[0],
 		max: range[1]
 	});
 });
@@ -155,7 +176,7 @@ app.get('/table', (req, res) => {
 	});
 });
 
-let renameNest = function(entry) {
+let renameNest = function (entry) {
 	if (entry.key) {
 		entry.name = entry.key;
 		delete entry.key;
@@ -173,39 +194,47 @@ let renameNest = function(entry) {
 	return entry;
 }
 
-var getFilteredData = function(req) {
+var getFilteredData = function (req) {
 	let filters = [];
 	let rangeFilters = [];
-	let checkFilters = [];	//my
+	let checkFilters = []; //my
 
 
 	if (req.query.filters) {
 		filters = filterNames.map((name) => {
-			return {name, value: req.query.filters[name]};
+			return {
+				name,
+				value: req.query.filters[name]
+			};
 		}).filter((filter) => filter.value ? true : false);
 		// console.log(filterNames);
 
 		rangeFilters = rangeFilterNames.map((name) => {
-			if (req.query.filters[name + "_max"]) { 
+			if (req.query.filters[name + "_max"]) {
 				return {
-					name, 
+					name,
 					min: parseFloat(req.query.filters[name + "_min"]),
 					max: parseFloat(req.query.filters[name + "_max"]),
 					active: true
 				};
 			} else {
-				return {active: false};
+				return {
+					active: false
+				};
 			}
 		}).filter((filter) => filter.active);
 		// console.log(rangeFilters)
 
-		checkFilters = checkFilterNames.map((name) => {	//my
-			return {name, value: req.query.filters[name]};
-			
+		checkFilters = checkFilterNames.map((name) => { //my
+			return {
+				name,
+				value: req.query.filters[name]
+			};
+
 		}).filter((filter) => filter.value);
 		console.log(checkFilters);
 	}
-	
+
 	let filteredData = data;
 	filters.forEach((filter) => filteredData = filteredData.filter((row) => row[filter.name] === filter.value));
 
