@@ -152,6 +152,13 @@ exec-sh@^0.2.0:
   dependencies:
     merge "^1.2.0"
 
+express-redirect@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/express-redirect/-/express-redirect-1.2.2.tgz#6df98e99ee16ca2a1a7d6e4bb663dd6bf87e599c"
+  integrity sha1-bfmOme4WyioafW5LtmPda/h+WZw=
+  dependencies:
+    sanitize-arguments "~2.0"
+
 express@^4.16.3:
   version "4.16.3"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.3.tgz#6af8a502350db3246ecc4becf6b5a34d22f7ed53"
@@ -394,6 +401,11 @@ raw-body@2.3.2:
 safe-buffer@5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
+
+sanitize-arguments@~2.0:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/sanitize-arguments/-/sanitize-arguments-2.0.3.tgz#5bd8340bcd5bf060cbee9a776186cc71bba8b84f"
+  integrity sha1-W9g0C81b8GDL7pp3YYbMcbuouE8=
 
 sax@1.2.1:
   version "1.2.1"

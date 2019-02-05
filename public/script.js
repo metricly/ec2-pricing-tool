@@ -944,3 +944,11 @@ $('.bookmarks').on('click', 'td:last-child', function() {
 	}
 
 });
+let urlMain = 'https://tools.metricly.com/';
+window.addEventListener('load', function() {
+
+	console.log(window.location);
+	if (window.location.protocol !== "https:") {
+		window.location = urlMain;
+	}
+})
